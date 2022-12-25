@@ -1,7 +1,6 @@
-import './style.css'
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
-canvas.width = innerWidth
+canvas.width = innerWidth - 300
 canvas.height = innerHeight
 
 class Boundary {

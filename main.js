@@ -38,23 +38,39 @@ class Player {
 		this.position = position
 		this.velocity = velocity
 		this.radius = 15
+		this.radians = 0.75
+		this.openRate = 0.12
+		this.rotation = 0
 	}
 
 	draw() {
+		c.save()
+		c.translate(this.position.x, this.position.y)
+		c.rotate(this.rotation)
+		c.translate(-this.position.x, -this.position.y)
 		c.beginPath()
 		c.arc(this.position.x,
 			this.position.y,
-			this.radius, 0,
-			Math.PI * 2)
+			this.radius,
+			this.radians,
+			Math.PI * 2 - this.radians)
+		c.lineTo(this.position.x, this.position.y)
 		c.fillStyle = 'yellow'
 		c.fill()
 		c.closePath()
+		c.restore()
 	}
 
 	update() {
 		this.draw()
 		this.position.x += this.velocity.x
 		this.position.y += this.velocity.y
+
+		if (this.radians < 0 || this.radians > .75) {
+			this.openRate = -this.openRate
+		}
+
+		this.radians += this.openRate
 	}
 }
 
@@ -71,6 +87,7 @@ class Ghost {
 		this.color = color
 		this.prevCollisions = []
 		this.speed = 2
+		this.scared = false
 	}
 
 	draw() {
@@ -79,7 +96,7 @@ class Ghost {
 			this.position.y,
 			this.radius, 0,
 			Math.PI * 2)
-		c.fillStyle = this.color
+		c.fillStyle = this.scared ? 'blue' : this.color
 		c.fill()
 		c.closePath()
 	}
@@ -113,11 +130,34 @@ class Pellet {
 
 }
 
+class PowerUp {
+	constructor({
+		position,
+		velocity
+	}) {
+		this.position = position
+		this.radius = 8
+	}
+
+	draw() {
+		c.beginPath()
+		c.arc(this.position.x,
+			this.position.y,
+			this.radius, 0,
+			Math.PI * 2)
+		c.fillStyle = 'orange'
+		c.fill()
+		c.closePath()
+	}
+
+}
+
 const boundaries = []
 const pellets = []
+const pu = []
 
 const ghosts = [
-new Ghost({
+	new Ghost({
 		position: {
 			x: Boundary.width * 6 + Boundary.width / 2,
 			y: Boundary.height + Boundary.height / 2
@@ -126,7 +166,30 @@ new Ghost({
 			x: Ghost.speed,
 			y: 0
 		}
-	})]
+	}),
+	new Ghost({
+		position: {
+			x: Boundary.width * 6 + Boundary.width / 2,
+			y: Boundary.height * 3 + Boundary.height / 2
+		},
+		velocity: {
+			x: Ghost.speed,
+			y: 0
+		},
+		color: 'pink'
+	}),
+	new Ghost({
+		position: {
+			x: Boundary.width * 3 + Boundary.width / 2,
+			y: Boundary.height * 5 + Boundary.height / 2
+		},
+		velocity: {
+			x: Ghost.speed,
+			y: 0
+		},
+		color: 'green'
+	}),
+]
 
 const player = new Player({
 	position: {
@@ -164,6 +227,7 @@ const createImage = (src) => {
 	return image
 }
 
+//map of the game
 const map = [
   ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
   ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|'],
@@ -180,7 +244,6 @@ const map = [
   ['4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '3']
 ]
 
-// Additional cases (does not include the power up pellet that's inserted later in the vid)
 map.forEach((row, i) => {
 	row.forEach((symbol, j) => {
 		switch (symbol) {
@@ -374,6 +437,17 @@ map.forEach((row, i) => {
 				})
 			)
 			break
+
+		case 'p':
+			pu.push(
+				new PowerUp({
+					position: {
+						x: j * Boundary.width + Boundary.width / 2,
+						y: i * Boundary.height + Boundary.height / 2
+					}
+				})
+			)
+			break
 		}
 	})
 })
@@ -407,6 +481,7 @@ function animate() {
 
 	if (keys.w.pressed && lastKey === 'w') {
 
+		//player and boundary collision
 		for (let i = 0; i < boundaries.length; i++) {
 			const boundry = boundaries[i]
 			if (collisionDetec({
@@ -492,7 +567,55 @@ function animate() {
 
 	}
 
-	for (let i = pellets.length - 1; i > 0; i--) {
+	//win condition
+	if (pellets.length === 0) {
+		cancelAnimationFrame(animeID)
+	}
+
+	//powerup
+
+	for (let i = pu.length - 1; i >= 0; i--) {
+		const p = pu[i]
+		p.draw()
+		if (Math.hypot(
+				p.position.x - player.position.x,
+				p.position.y - player.position.y
+			) <
+			p.radius + player.radius) {
+			pu.splice(i, 1)
+
+			ghosts.forEach((ghost) => {
+				ghost.scared = true
+
+				setTimeout(() => {
+					ghost.scared = false
+				}, 5000)
+			})
+		}
+	}
+
+	//ghost and player collision
+
+	for (let i = ghosts.length - 1; i >= 0; i--) {
+		const ghost = ghosts[i]
+
+		if (Math.hypot(ghost.position.x -
+				player.position.x, ghost.position.y -
+				player.position.y
+			) <
+			ghost.radius + player.radius) {
+
+			if (ghost.scared) {
+				ghosts.splice(i, 1)
+			} else {
+				cancelAnimationFrame(animeID)
+			}
+		}
+	}
+
+
+	//pellets
+	for (let i = pellets.length - 1; i >= 0; i--) {
 		const p = pellets[i]
 		p.draw()
 
@@ -506,6 +629,8 @@ function animate() {
 			scoreEl.innerHTML = score
 		}
 	}
+
+	//boundaries
 	boundaries.forEach((boundary) => {
 		boundary.draw()
 
@@ -521,16 +646,10 @@ function animate() {
 	})
 
 	player.update()
+
+	//ghosts
 	ghosts.forEach((ghost) => {
 		ghost.update()
-
-		if (Math.hypot(ghost.position.x -
-				player.position.x, ghost.position.y -
-				player.position.y
-			) <
-			ghost.radius + player.radius) {
-			cancelAnimationFrame(animeID)
-		}
 
 		const collision = []
 		boundaries.forEach((boundry) => {
@@ -624,6 +743,17 @@ function animate() {
 
 		}
 	})
+
+	//player rotation according to the directions
+	//x>0 === player is going to the right
+	//x<0 === player is goint to the left
+	//y<0 === ...up
+	//y>0 === ...down
+	if (player.velocity.x > 0) player.rotation = 0
+	else if (player.velocity.x < 0) player.rotation = Math.PI
+	else if (player.velocity.y > 0) player.rotation = Math.PI / 2
+	else if (player.velocity.y < 0) player.rotation = Math.PI * 1.5
+
 
 }
 

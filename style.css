@@ -6,7 +6,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,10 +15,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
+p span {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: #fff;
+  text-decoration: inherit
 }
 a:hover {
   color: #535bf2;
@@ -26,6 +26,7 @@ a:hover {
 
 body {
   margin: 0;
+  padding: 10px 20px
   /*display: flex;
   flex-direction: column;
   place-items: center;
@@ -34,8 +35,8 @@ body {
 @media screen and (min-width: 700px){
   /*body{
     display:flex;
-    flex-direction: row;*/
-  }
+    flex-direction: row;
+  }*/
 }
 h1 {
   font-size: 3.2em;

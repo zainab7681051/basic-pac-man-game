@@ -18,7 +18,7 @@ import {
 
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
-canvas.width = innerWidth
+canvas.width = 500
 canvas.height = innerHeight
 
 const scoreEl = document.querySelector('#score')
@@ -188,6 +188,10 @@ function animate() {
 	//win condition
 	if (pellets.length === 0) {
 		cancelAnimationFrame(animeID)
+		document.querySelector('.win')
+			.classList.remove('hideMessage')
+		document.querySelector('.button-64')
+			.classList.remove('hideButton')
 	}
 
 	//powerup
@@ -227,6 +231,11 @@ function animate() {
 				ghosts.splice(i, 1)
 			} else {
 				cancelAnimationFrame(animeID)
+				document.querySelector('.lose')
+					.classList.remove('hideMessage')
+				document.querySelector('.button-64')
+					.classList.remove('hideButton')
+
 			}
 		}
 	}
@@ -375,7 +384,7 @@ function animate() {
 
 }
 
-animate()
+animate() //start of animation
 
 addEventListener('keydown', ({
 	key

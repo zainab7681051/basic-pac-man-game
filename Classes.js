@@ -103,7 +103,6 @@ class Ghost {
 	}
 }
 
-
 class Pellet {
 	constructor({
 		position,
@@ -147,6 +146,7 @@ class PowerUp {
 	}
 
 }
+
 export {
 	Boundary,
 	Player,

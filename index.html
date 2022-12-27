@@ -8,13 +8,25 @@
     <title>pac-man-game</title>
   </head>
   <body>
-    <p>
-      <span>score: </span>
-      <span id="score">0</span>
-    </p>
-    <canvas></canvas>
-    
-    <script type="module" src="/main.js"></script>
+    <div class="wrapper1">
+      
+      <canvas class="canvas"></canvas>
+      <div class="scoreDiv">
+        <h1>PAC-MAN GAME</h1>
+        <p>
+          <span>score: </span>
+          <span id="score">0</span>
+        </p>
+        <h3 class="win message hideMessage"> you win!</h3>
+        <h3 class="lose message hideMessage"> you lose...</h3>
+        <button onclick="window.location.reload(true)"
+        class="button-64 hideButton" role="button">
+        <span class="text">
+        start over</span>
+        </button>
+      </div>
+    </div>
+    <script defer type="module" src="/main.js"></script>
     
   </body>
 </html>

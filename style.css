@@ -1,102 +1,146 @@
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #000;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+@font-face {
+  font-family: 'Rocher';
+  src: url(https://assets.codepen.io/9632/RocherColorGX.woff2);
+}
+@font-palette-values --pac {
+  font-family: Rocher;
+  base-palette: 8;
+}
+@font-palette-values --win {
+  font-family: Rocher;
+  base-palette: 2;
+}
+@font-palette-values --lose {
+  font-family: Rocher;
+  base-palette: 3;
 }
 
-p span {
-  font-weight: 500;
-  color: #fff;
-  text-decoration: inherit
-}
-a:hover {
-  color: #535bf2;
+body{
+  background-color: black
 }
 
-body {
-  margin: 0;
-  padding: 10px 20px
-  /*display: flex;
-  flex-direction: column;
-  place-items: center;
-*/
-}
-@media screen and (min-width: 700px){
-  /*body{
-    display:flex;
-    flex-direction: row;
-  }*/
-}
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1; 
+.wrapper1{
+  display: inline-flex;
+
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
+.scoreDiv{
+  width: +400px;
   text-align: center;
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+p span{
+  color: #fff;
+  font-family: Phantomsans, sans-serif;
+  font-size: 1.5rem}
+
+h1{
+  font-family: Rocher;
+  font-palette: --pac;
 }
 
-.card {
-  padding: 2em;
+.hideMessage{
+  transform: scale(0);
+}
+.hideButton{
+  transform: scale(0);
 }
 
-.read-the-docs {
-  color: #888;
+.canvas{
+flex: auto;  
 }
 
-button {
+.message {
+  font-family: 'Rocher';
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display:flex;
+  color: white;
+}
+
+.win{
+  display:flex;  
+  font-palette: --win;
+  font-size: 2em;
+  font-weight: 400;
+  margin-top: 0;
+  -webkit-transition: all .25s ease-in;
+     -moz-transition: all .25s ease-in;
+      -ms-transition: all .25s ease-in;
+       -o-transition: all .25s ease-in;
+          transition: all .25s ease-in;
+}
+
+.lose{
+  display: flex;
+  font-palette: --lose;
+  font-size: 2em;
+  font-weight: 400;
+  margin-top: 0;
+  -webkit-transition: all .25s ease;
+     -moz-transition: all .25s ease;
+      -ms-transition: all .25s ease;
+       -o-transition: all .25s ease;
+          transition: all .25s ease;
+}
+
+.button-64 {
+  align-items: center;
+  margin-top: 10px;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  -webkit-transition: all .25s ease-in;
+     -moz-transition: all .25s ease-in;
+      -ms-transition: all .25s ease-in;
+       -o-transition: all .25s ease-in;
+          transition: all .25s ease-in;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+.button-64:active,
+.button-64:hover {
+  outline: 0;
+}
+
+.button-64 span {
+  background-color: rgb(5, 6, 45);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.button-64:hover span {
+  background: none;
+}
+
+@media (min-width: 768px) {
+  .button-64 {
+    font-size: 24px;
+    min-width: 196px;
   }
 }

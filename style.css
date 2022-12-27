@@ -24,6 +24,14 @@ body{
 
 }
 
+.wrapper0{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  place-items:center;
+  text-align: center;
+}
+
 .scoreDiv{
   width: +400px;
   text-align: center;
@@ -36,17 +44,22 @@ body{
 p span{
   color: #fff;
   font-family: Phantomsans, sans-serif;
-  font-size: 1.5rem}
+  font-size: 1.5rem
+}
 
 h1{
   font-family: Rocher;
   font-palette: --pac;
+  will-change: filter;
+  transition: filter 300ms;
 }
 
-.hideMessage{
-  transform: scale(0);
+h1:hover{
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 1em #f7df1eaa);
 }
-.hideButton{
+
+.hide{
   transform: scale(0);
 }
 
@@ -138,9 +151,96 @@ flex: auto;
   background: none;
 }
 
-@media (min-width: 768px) {
-  .button-64 {
-    font-size: 24px;
-    min-width: 196px;
-  }
+
+a{
+  text-decoration: none;
+}
+
+.primary{
+  color: #fff;
+  font-family: Phantomsans, sans-serif;
+  font-size: 1.5rem
+
+}
+
+.secondary{
+  color: pink;
+  font-family: Phantomsans, sans-serif;
+  font-size: 1rem
+
+}
+
+.hideLoader{
+  transform: scale(0);
+}
+.loaderContain {
+    width: 100%;
+    height: 100vh;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 999;
+    overflow: show;
+    margin: auto;
+    top: 50%;
+    left: 35%;
+    bottom: 0;
+    right: 0;
+}
+
+.loader {
+    width: 300px;
+    height: 100px;
+    background-color: #000;
+    position: relative;
+    display: block;
+    filter: blur(10px) contrast(20);
+}
+
+.drop1, .drop2 {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.drop1 {
+    background-color: #f9fd00;
+    left: 10%;
+    animation: ani1 ease-in-out infinite 1.5s;
+}
+
+.drop2 {
+    background-color: #f00;
+    right: 10%;
+    animation: ani2 ease-in-out infinite 1.5s;
+}
+
+@keyframes ani1 {
+    0% {
+        left: 10%;
+    }
+    50% {
+        left: 45%;
+    }
+    100% {
+        left: 10%;
+    }
+}
+
+@keyframes ani2 {
+    0% {
+        right: 10%;
+    }
+
+    50% {
+        right: 45%;
+    }
+
+    100% {
+        right: 10%;
+    }
 }

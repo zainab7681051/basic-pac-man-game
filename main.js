@@ -16,6 +16,19 @@ import {
 	collisionDetec
 } from './collisionDetection.js'
 
+const showLoader = () => {
+
+	document.querySelector('.loaderContain')
+		.classList.remove('hideLoader');
+}
+
+const hideLoader = () => {
+	document.querySelector('.loaderContain')
+		.classList.add('hideLoader');
+	document.querySelector('.scoreDiv')
+		.classList.remove('hide');
+}
+
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 canvas.width = 500
@@ -45,18 +58,7 @@ const ghosts = [
 			y: 0
 		},
 		color: 'pink'
-	}),
-	new Ghost({
-		position: {
-			x: Boundary.width * 3 + Boundary.width / 2,
-			y: Boundary.height * 5 + Boundary.height / 2
-		},
-		velocity: {
-			x: Ghost.speed,
-			y: 0
-		},
-		color: 'green'
-	}),
+	})
 ]
 
 const player = new Player({
@@ -189,9 +191,9 @@ function animate() {
 	if (pellets.length === 0) {
 		cancelAnimationFrame(animeID)
 		document.querySelector('.win')
-			.classList.remove('hideMessage')
+			.classList.remove('hide')
 		document.querySelector('.button-64')
-			.classList.remove('hideButton')
+			.classList.remove('hide')
 	}
 
 	//powerup
@@ -232,9 +234,9 @@ function animate() {
 			} else {
 				cancelAnimationFrame(animeID)
 				document.querySelector('.lose')
-					.classList.remove('hideMessage')
+					.classList.remove('hide')
 				document.querySelector('.button-64')
-					.classList.remove('hideButton')
+					.classList.remove('hide')
 
 			}
 		}
@@ -381,10 +383,14 @@ function animate() {
 	else if (player.velocity.y > 0) player.rotation = Math.PI / 2
 	else if (player.velocity.y < 0) player.rotation = Math.PI * 1.5
 
+	hideLoader()
 
 }
 
-animate() //start of animation
+showLoader()
+setTimeout(() => {
+	animate() //start of animation
+}, 5000)
 
 addEventListener('keydown', ({
 	key

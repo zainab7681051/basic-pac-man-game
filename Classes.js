@@ -140,7 +140,7 @@ class PowerUp {
 			this.position.y,
 			this.radius, 0,
 			Math.PI * 2)
-		c.fillStyle = 'orange'
+		c.fillStyle = 'green'
 		c.fill()
 		c.closePath()
 	}

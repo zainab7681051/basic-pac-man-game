@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>pac-man-game</title>
+  </head>
+  <body>
+    <div class="wrapper1">
+      <canvas class="canvas"></canvas>
+      <div class="scoreDiv hide">
+        <h1>PAC-MAN GAME</h1>
+        <p class="secondary">take the green pellet to power up the pacman and take out the enemies</p>
+        <p>
+          <span>score: </span>
+          <span id="score">0</span>
+        </p>
+        <h3 class="win message hide"> you win!</h3>
+        <h3 class="lose message hide"> you lose...</h3>
+        <button onclick="window.location.reload(true)"
+        class="button-64 hide" role="button">
+        <span class="text">
+        start over</span>
+        </button>
+      </div>
+    </div>
+    <div class="loaderContain">
+      <div class="loader">
+        <div class="drop1"></div>
+        <div class="drop2"></div>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+    
+  </body>
+</html>

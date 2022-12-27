@@ -8,25 +8,16 @@
     <title>pac-man-game</title>
   </head>
   <body>
-    <div class="wrapper1">
-      
-      <canvas class="canvas"></canvas>
-      <div class="scoreDiv">
-        <h1>PAC-MAN GAME</h1>
-        <p>
-          <span>score: </span>
-          <span id="score">0</span>
-        </p>
-        <h3 class="win message hideMessage"> you win!</h3>
-        <h3 class="lose message hideMessage"> you lose...</h3>
-        <button onclick="window.location.reload(true)"
-        class="button-64 hideButton" role="button">
-        <span class="text">
-        start over</span>
-        </button>
-      </div>
+    <div class="wrapper0">
+      <h1>PAC-MAN GAME</h1>
+      <p class="primary"> this is a simple pac-man game made in vanilla JavaScript and HTML Canvas element</p>
+      <p class="secondary"> use the a, s, d and w keys for navigating the player. the keys are as follows:</p>
+      <p class="secondary"> a: left, s: down, d: right and w: up</p>
+      <a href="./game.html">
+        <button class="button-64"><span>start the game</span></button>
+      </a>
     </div>
-    <script defer type="module" src="/main.js"></script>
+    <script type="module" src="/index.js"></script>
     
   </body>
 </html>

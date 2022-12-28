@@ -55,7 +55,7 @@ h1{
   font-family: Rocher;
   font-palette: --pac;
   will-change: filter;
-  transition: filter 300ms;
+  transition: filter 100ms;
 }
 
 h1:hover{

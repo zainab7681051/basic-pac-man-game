@@ -1,6 +1,6 @@
 import {
 	c
-} from './main.js'
+} from './canvas.js'
 
 class Boundary {
 	static width = 40

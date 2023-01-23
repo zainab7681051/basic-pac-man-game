@@ -20,7 +20,7 @@ body{
 }
 
 .bg{
-background-image: url('bg-space.gif');
+background-image: url('/bg-space.gif');
 }
 
 .wrapper1{
